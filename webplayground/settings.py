@@ -89,26 +89,26 @@ WSGI_APPLICATION = 'webplayground.wsgi.application'
 #  }
 
 # Configuracion Base Trabajo
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'webplayground',
-#         'USER': 'postgres',
-#         'PASSWORD': '123',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5433',
-#     }
-# }
-
-# Configuracion mi Notebook
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'webplayground',
         'USER': 'postgres',
         'PASSWORD': '123',
+        'HOST': '127.0.0.1',
+        'PORT': '5433',
     }
 }
+
+# Configuracion mi Notebook
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'webplayground',
+#         'USER': 'postgres',
+#         'PASSWORD': '123',
+#     }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
