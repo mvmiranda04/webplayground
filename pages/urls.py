@@ -1,6 +1,6 @@
 from django.urls import path
 # from . import views
-from pages.views import PagesListView, PagesDetailView, PageCreate, PageUpdate
+from pages.views import PagesListView, PagesDetailView, PageCreate, PageUpdate, PageDeleteView
 
 # urlpatterns = [
 #     # Esto es para vistas basadas en funciones
@@ -27,4 +27,5 @@ page_patterns = ([
                      path('<int:pk>/<slug:page_slug>/', PagesDetailView.as_view(), name='page'),
                      path('create/', PageCreate.as_view(), name='create'),
                      path('update/<int:pk>/', PageUpdate.as_view(), name='update'),
+                     path('delete/<int:pk>/', PageDeleteView.as_view(), name='delete'),
                  ], 'pages')
