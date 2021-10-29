@@ -114,6 +114,8 @@ class PageUpdate(UpdateView):
 # Aqui ya no utilizo el mixin, utilizo el decorador para comprobar si el usuario es staff
 # class PageDeleteView(StaffRequiredMixin, DeleteView):
 
+### Comento para commit
+
 @method_decorator(staff_member_required, name='dispatch')
 class PageDeleteView(DeleteView):
     model = Page
