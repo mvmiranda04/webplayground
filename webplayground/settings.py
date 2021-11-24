@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -144,6 +144,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+# Donde se direcciona cuando se logea
+# Auth redict
 
 STATIC_URL = '/static/'
 
@@ -152,7 +154,19 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Donde se direcciona cuando se logea
-# Auth redict
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL
+# LOGIN_REDIRECT_URL = 'home'
+# Lo comentamos para que vaya al profile
+
+LOGOUT_REDIRECT_URL = 'home'
+
+# Emails
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+else:
+    # aqui hay que configurar un email real para produccion
+    pass
+
+# Media File
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
