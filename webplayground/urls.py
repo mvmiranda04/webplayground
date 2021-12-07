@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from pages.urls import page_patterns
 from django.conf import settings
+from profiles.urls import profiles_patterns
 
 # Lo hacemos asi sin incluir page_patterns
 # urlpatterns = [
@@ -32,8 +33,11 @@ urlpatterns = [
     # path del Auth
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('registration.urls')),
+    # Paths de profiles
+    path('profiles/', include(profiles_patterns)),
 ]
 
 if settings.DEBUG:
     from django.conf.urls.static import static
+
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
