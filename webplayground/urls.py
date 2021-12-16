@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
+from messenger.urls import messenger_paterns
 from pages.urls import page_patterns
 from django.conf import settings
 from profiles.urls import profiles_patterns
@@ -35,6 +37,8 @@ urlpatterns = [
     path('accounts/', include('registration.urls')),
     # Paths de profiles
     path('profiles/', include(profiles_patterns)),
+    # Paths de messenger
+    path('messenger/', include(messenger_paterns)),
 ]
 
 if settings.DEBUG:
