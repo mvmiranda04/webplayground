@@ -82,6 +82,10 @@
                       message.innerHTML = '<small><i>Hace unos segundos</i></small><br>'+decodeURIComponent(content);
                       document.getElementById("thread").appendChild(message);   // Lo añadimos a la div thread
                       ScrollBottomInThread();  // Movemos el scrol abajo del todo
+                      //Si es el primer mensaje el hilo, actualizaremos para que aparezca a la izquierda
+                      if (data.first){
+                        window.location.href = "{% url 'messenger:detail' thread.pk %}"
+                      }
                     } else {
                       // Si algo ha ido mal podemos debugear en la consola del inspector
                       console.log("Algo ha fallado y el mensaje no se ha podido añadir.")

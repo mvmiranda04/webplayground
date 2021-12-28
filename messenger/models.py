@@ -31,8 +31,12 @@ class ThreadManager(models.Manager):
 class Thread(models.Model):
     users = models.ManyToManyField(User, related_name='threads')
     messages = models.ManyToManyField(Message)
+    updated = models.DateTimeField(auto_now=True)
 
     objects = ThreadManager()
+
+    class Meta:
+        ordering = ['-updated']
 
 
 # instance: La instancia que manda la señal, es decir el hilo al que estamos intentando enviar los mensajes action:
@@ -54,6 +58,9 @@ def messages_changed(sender, **kwargs):
         # Buscar los mensajes si si estan en fals_pk_set y los borramos de pk_set
         # Resta los que estan en false_pk_set los resta de pk_set
         pk_set.difference_update(false_pk_set)
+
+        # Forzar la actualizacion haciendo un save
+        instance.save()
 
 
 # Para conectar la señal con cualquier cambio que suceda en el campo message

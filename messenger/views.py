@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
@@ -13,6 +15,7 @@ from django.shortcuts import get_object_or_404
 
 from messenger.models import Thread, Message
 
+
 # class ThreadList(ListView):
 #     # Se Sobreescribe la queryset para que solo me traiga los hilos de un usuario,
 #     # pero en realidad no me hace falta porque existe una relacion inversa user.thread.all(), por lo tanto
@@ -22,6 +25,7 @@ from messenger.models import Thread, Message
 #     # def get_queryset(self):
 #     #     queryset = super(ThreadList, self).get_queryset()
 #     #     return queryset.filter(users=self.request.user)
+
 
 @method_decorator(login_required, name="dispatch")
 class ThreadList(TemplateView):
@@ -50,7 +54,17 @@ def add_message(request, pk):
             message = Message.objects.create(user=request.user, content=content)
             thread.messages.add(message)
             json_response['created'] = True
+            # Para verificar si es el primer mensaje y recargar la pagina
+            if len(thread.messages.all()) is 1:
+                json_response['first'] = True
     else:
         raise Http404("Usuario no autenticado")
 
     return JsonResponse(json_response)
+
+
+@login_required
+def start_thread(request, username):
+    user = get_object_or_404(User, username=username)
+    theard = Thread.objects.find_or_create(user, request.user)
+    return redirect(reverse_lazy('messenger:detail', args=[theard.pk]))
